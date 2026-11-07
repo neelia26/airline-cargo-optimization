@@ -94,6 +94,18 @@ Reproduce the lightweight audit without retaining the downloaded source tables:
 .venv/bin/python src/model_validation/audit_mass_target_relationship.py
 ```
 
+## Cargo consignment generation
+
+The genetic-algorithm input contains 100 reproducible synthetic consignments offered for the CMB–DXB flight. Weight, volume, chargeable weight, cargo category, priority, revenue, handling cost, deadline and availability probability are generated through documented rules. IATA's volumetric-weight convention and published SriLankan Cargo handling charges inform the calculations; route-specific financial and density values remain clearly labelled modelling assumptions.
+
+Generate the consignment table with:
+
+```bash
+.venv/bin/python src/data_generation/generate_cargo_consignments.py
+```
+
+The resulting CSV and metadata are stored in `data/generated/`. The complete methodology is documented in `report/cargo_consignment_generation.md`.
+
 ## Project structure
 
 - `data/generated/` contains the final generated dataset.
