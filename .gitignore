@@ -16,4 +16,6 @@ results/*
 !results/model_selection/**
 !results/real_data_validation/
 !results/real_data_validation/**
+!results/deterministic_ga/
+!results/deterministic_ga/**
 
