@@ -81,6 +81,16 @@ Reproduce the comparison with:
 
 Detailed reasoning is recorded in `report/regression_model_selection.md`. Machine-readable metrics and the fitted pipeline are stored in `results/model_selection/`.
 
+## Real-data compatibility audit
+
+The public EUROCONTROL PRC 2025 operational dataset was audited for external validation. It contains 295 B777-300ER flights, but no CMB–DXB flight and no B777-300ER flight inside this model's 225.5–252.5 minute duration range. PRC also labels discontinuous fuel intervals, whereas this project predicts complete-flight fuel. Consequently, calculating a direct accuracy score would be invalid. The evidence and limitations are documented in `report/real_data_validation.md`.
+
+Reproduce the lightweight audit without retaining the downloaded source tables:
+
+```bash
+.venv/bin/python src/model_validation/audit_prc_compatibility.py
+```
+
 ## Project structure
 
 - `data/generated/` contains the final generated dataset.
