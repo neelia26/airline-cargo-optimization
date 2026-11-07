@@ -1,0 +1,43 @@
+{
+  "generator": "OpenAP",
+  "openap_aircraft_code": "B77W",
+  "route": "CMB-DXB",
+  "seed": 4607,
+  "assumptions": {
+    "route_distance_km": 3306.0,
+    "base_aircraft_mass_kg": [
+      205000,
+      220000
+    ],
+    "cargo_mass_kg": [
+      2000,
+      18000
+    ],
+    "cruise_mach": [
+      0.8,
+      0.86
+    ],
+    "cruise_altitude_ft": [
+      33000,
+      39000
+    ],
+    "temperature_deviation_k": [
+      -8,
+      12
+    ],
+    "reserve_fuel_kg": 5000.0,
+    "fuel_contingency_fraction": 0.05,
+    "assumed_fuel_price_per_kg": 0.8
+  },
+  "validation": {
+    "rows": 100,
+    "columns": 15,
+    "missing_values": 0,
+    "duplicate_scenario_ids": 0,
+    "openap_mtow_kg": 351500,
+    "maximum_generated_takeoff_mass_kg": 285987.67,
+    "minimum_generated_takeoff_mass_kg": 258088.425,
+    "minimum_fuel_consumption_kg": 40283.237,
+    "maximum_fuel_consumption_kg": 44236.476
+  }
+}
