@@ -1,0 +1,30 @@
+{
+  "source": "EUROCONTROL PRC 2025 Aircraft Fuel Burn Estimation dataset",
+  "doi": "10.5281/zenodo.19184662",
+  "license": "CC BY 4.0",
+  "aircraft_type": "B77W",
+  "b77w_flights": 295,
+  "exact_vcbi_omdb_flights": 0,
+  "flights_inside_synthetic_duration_range": 0,
+  "synthetic_duration_range_min": [
+    225.5,
+    252.5
+  ],
+  "closest_flight": {
+    "flight_id": "prc779340441",
+    "split": "train",
+    "origin_icao": "HECA",
+    "destination_icao": "EGLL",
+    "duration_min": 275.46666666666664,
+    "labelled_intervals": 4,
+    "labelled_minutes": 71.99256666666666,
+    "labelled_duration_fraction": 0.26134765246853825
+  },
+  "direct_accuracy_test_valid": false,
+  "reasons": [
+    "No CMB-DXB B77W flight is present",
+    "No B77W flight falls inside the model's duration range",
+    "PRC targets are discontinuous fuel intervals, while the SVR target is full-flight fuel",
+    "PRC metadata does not provide zero-fuel mass or temperature deviation"
+  ]
+}

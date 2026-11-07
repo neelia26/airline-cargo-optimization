@@ -1,58 +1,68 @@
-# OpenAP Pilot Dataset Validation
+# OpenAP Dataset Validation
 
 ## Scope
 
-The pilot contains 100 simulated Boeing 777-300ER flight scenarios for the Colombo to Dubai route. It was generated with OpenAP 2.6.2 using seed 4607.
+The project contains a 100-row pilot and a 5,000-row final dataset of simulated Boeing 777-300ER flight scenarios for the Colombo to Dubai route. Both were generated with OpenAP 2.6.2 using seed 4607.
 
 ## Structural checks
 
-| Check | Result |
-|---|---:|
-| Rows | 100 |
-| Columns | 15 |
-| Missing values | 0 |
-| Duplicate scenario identifiers | 0 |
-| Reproducible from the saved seed | Yes |
+| Check | Pilot | Final dataset |
+|---|---:|---:|
+| Rows | 100 | 5,000 |
+| Columns | 15 | 15 |
+| Missing values | 0 | 0 |
+| Duplicate scenario identifiers | 0 | 0 |
+| Reproducible from the saved seed | Yes | Yes |
 
 ## Range checks
 
-| Variable | Minimum | Maximum | Assessment |
+| Variable | Final minimum | Final maximum | Assessment |
 |---|---:|---:|---|
-| Cargo mass | 2,089.723 kg | 17,873.080 kg | Within the pilot generation range |
-| Base aircraft mass | 205,034.988 kg | 219,954.633 kg | Above OpenAP operating empty weight and below aircraft limits |
-| Take-off mass | 258,088.425 kg | 285,987.670 kg | Below the OpenAP MTOW of 351,500 kg |
-| Cruise speed | 458 kt | 497 kt | Plausible cruise-speed range |
+| Cargo mass | 2,001.814 kg | 17,999.004 kg | Within the configured generation range |
+| Zero-fuel mass | 207,501.399 kg | 237,669.948 kg | Below Boeing's 237,682 kg maximum zero-fuel mass |
+| Take-off mass | 254,539.355 kg | 288,936.996 kg | Below the OpenAP MTOW of 351,500 kg |
+| Cruise speed | 458 kt | 500 kt | Plausible cruise-speed range |
 | Cruise altitude | 33,000 ft | 39,000 ft | Plausible cruise-altitude range |
-| Temperature deviation | -7.892 K | 11.989 K | Within the configured scenario range |
-| Simulated flight duration | 227.5 min | 250.5 min | Plausible airborne duration for the route |
-| Fuel consumption | 40,283.237 kg | 44,236.476 kg | Positive and internally consistent with OpenAP output |
+| Temperature deviation | -7.997 K | 11.996 K | Within the configured scenario range |
+| Simulated flight duration | 225.5 min | 252.5 min | Plausible airborne duration for the route |
+| Fuel consumption | 39,281.426 kg | 44,693.734 kg | Positive and internally consistent with OpenAP output |
 
-## Pilot learnability check
+## Corrected mass input
 
-Five-fold cross-validation was used only as a diagnostic on the 100-row pilot. It is not the final ML evaluation.
-
-| Model | Mean R squared | Mean absolute error |
-|---|---:|---:|
-| Linear regression using take-off mass | 0.977 | 96.2 kg |
-| Random forest using take-off mass | 0.807 | 313.0 kg |
-| Linear regression using zero-fuel mass | 0.971 | 106.8 kg |
-
-The linear relationship is strong in the controlled OpenAP scenarios. The random forest has less data to learn from in this small pilot and should be reconsidered after the full dataset is created.
-
-## Required schema correction before scaling
-
-`takeoff_mass_kg` includes the fuel loaded for the flight. Because fuel consumption is the target, the GA would not know the final take-off mass until after the ML model predicts the required fuel. Using take-off mass as an ML input therefore creates a circular dependency.
-
-The recommended correction is to use `zero_fuel_mass_kg` as the mass input. It is calculated as:
+The pilot review found that take-off mass contains the fuel that the model is intended to predict. The schema was therefore corrected before scaling. `zero_fuel_mass_kg` is now the mass input, while `takeoff_mass_kg` remains a supporting calculated value.
 
 ```text
 zero fuel mass = base aircraft mass + cargo mass
 ```
 
-This value is available before fuel prediction and still gives strong pilot performance. `takeoff_mass_kg` can remain in the dataset as a supporting calculated value, but it should not be supplied to the ML model.
+This value is known before fuel prediction, so it avoids a circular dependency when the GA later evaluates a cargo selection.
 
-To keep the agreed 15-column dataset, `zero_fuel_mass_kg` can replace `base_aircraft_mass_kg`. The base mass remains an internal generation assumption and can be recovered as zero-fuel mass minus cargo mass.
+## Full-dataset learnability diagnostic
+
+An 85/15 train-test split with random state 4607 was used only to confirm that the generated predictors retain useful information. This is not the final model-selection experiment.
+
+| Model | Test R squared | Test mean absolute error | Test RMSE |
+|---|---:|---:|---:|
+| Linear regression | 0.979 | 102.7 kg | 136.0 kg |
+| Random forest | 0.987 | 84.8 kg | 108.9 kg |
+
+## Feature-combination feasibility audit
+
+All 5,000 combinations were checked using Boeing limits and OpenAP performance functions.
+
+| Check | Invalid rows |
+|---|---:|
+| Zero-fuel mass above 237,682 kg | 0 |
+| Take-off mass above 351,500 kg | 0 |
+| Estimated landing mass above 251,300 kg | 0 |
+| Cruise Mach above 0.89 | 0 |
+| Required level-flight drag above available OpenAP cruise thrust | 0 |
+| Non-positive fuel consumption | 0 |
+
+The calculated Mach numbers range from 0.779 to 0.875. The conservative drag-to-available-thrust ratio ranges from 0.768 to 0.972. The highest ratios occur in heavy, high-altitude scenarios, but remain below 1.0 even when take-off mass is used as a conservative cruise-mass approximation. Actual aircraft mass would be lower after climb fuel is consumed.
+
+Average route speed, calculated from distance and simulated duration, ranges from approximately 786 to 880 km/h. This is below cruise speed because the duration also includes climb and descent.
 
 ## Conclusion
 
-The pilot passes the structural, aircraft-limit, plausibility, and reproducibility checks. The full 5,000-row dataset should not be generated until the mass-input correction is accepted and applied to the pilot generator.
+The corrected pilot and final dataset pass the structural, aircraft-limit, plausibility, reproducibility, and diagnostic learnability checks. Formal model selection and evaluation should use the saved final dataset in a separate, reproducible ML workflow.

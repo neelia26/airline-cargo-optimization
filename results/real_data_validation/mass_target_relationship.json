@@ -1,0 +1,10 @@
+{
+  "rows": 5000,
+  "calculation": "loaded_fuel_kg = takeoff_mass_kg - zero_fuel_mass_kg",
+  "generator_relationship": "loaded_fuel_kg = fuel_consumption_kg * 1.05 + 5000",
+  "reverse_calculation": "reconstructed_trip_fuel_kg = (loaded_fuel_kg - 5000) / 1.05",
+  "loaded_fuel_target_correlation": 0.9999999999998623,
+  "mean_absolute_reconstruction_error_kg": 0.00039132380984374323,
+  "maximum_absolute_reconstruction_error_kg": 0.0013809523879899643,
+  "interpretation": "The target can be reconstructed because take-off mass was derived from that target by the generator. This is a consistency check, not independent validation, and take-off mass must not be an ML input."
+}

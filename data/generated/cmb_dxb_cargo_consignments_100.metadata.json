@@ -1,0 +1,176 @@
+{
+  "dataset_type": "synthetic cargo consignments",
+  "seed": 4607,
+  "route": "CMB-DXB",
+  "rows": 100,
+  "sources": {
+    "iata_chargeable_weight": "https://www.iata.org/en/publications/newsletters/iata-knowledge-hub/air-cargo-tariffs-and-rules-what-you-need-to-know",
+    "srilankan_cargo_handling_charges": "https://www.srilankancargo.com/assets/pdf/charges/import-charges.pdf",
+    "manifest_structure_reference": "https://www.docupipe.ai/landing/air-cargo-manifest",
+    "category_and_priority_reference": "https://www.kaggle.com/datasets/colabsss/air-cargo-resource-allocation-data"
+  },
+  "assumptions": {
+    "volumetric_divisor_cm3_per_kg": 6000,
+    "modelling_exchange_rate_lkr_per_usd": 320.0,
+    "documentation_charge_lkr": 2000.0,
+    "category_rules": {
+      "general": {
+        "probability": 0.3,
+        "weight_kg": [
+          80.0,
+          2200.0
+        ],
+        "density_kg_m3": [
+          120.0,
+          420.0
+        ],
+        "rate_usd_kg": [
+          1.2,
+          2.4
+        ],
+        "handling_class": "general",
+        "special_code": "GEN"
+      },
+      "electronics": {
+        "probability": 0.16,
+        "weight_kg": [
+          30.0,
+          900.0
+        ],
+        "density_kg_m3": [
+          100.0,
+          300.0
+        ],
+        "rate_usd_kg": [
+          3.0,
+          5.5
+        ],
+        "handling_class": "general",
+        "special_code": "ELI"
+      },
+      "perishable": {
+        "probability": 0.15,
+        "weight_kg": [
+          60.0,
+          1500.0
+        ],
+        "density_kg_m3": [
+          140.0,
+          380.0
+        ],
+        "rate_usd_kg": [
+          2.2,
+          4.0
+        ],
+        "handling_class": "special",
+        "special_code": "PER-COL"
+      },
+      "pharmaceutical": {
+        "probability": 0.12,
+        "weight_kg": [
+          20.0,
+          600.0
+        ],
+        "density_kg_m3": [
+          80.0,
+          240.0
+        ],
+        "rate_usd_kg": [
+          4.5,
+          7.5
+        ],
+        "handling_class": "special",
+        "special_code": "PIL-COL"
+      },
+      "fragile": {
+        "probability": 0.1,
+        "weight_kg": [
+          25.0,
+          800.0
+        ],
+        "density_kg_m3": [
+          60.0,
+          200.0
+        ],
+        "rate_usd_kg": [
+          2.8,
+          5.0
+        ],
+        "handling_class": "special",
+        "special_code": "FRG"
+      },
+      "dangerous_goods": {
+        "probability": 0.09,
+        "weight_kg": [
+          30.0,
+          700.0
+        ],
+        "density_kg_m3": [
+          180.0,
+          550.0
+        ],
+        "rate_usd_kg": [
+          3.8,
+          6.5
+        ],
+        "handling_class": "special",
+        "special_code": "DGR"
+      },
+      "express": {
+        "probability": 0.08,
+        "weight_kg": [
+          10.0,
+          350.0
+        ],
+        "density_kg_m3": [
+          70.0,
+          220.0
+        ],
+        "rate_usd_kg": [
+          4.0,
+          7.0
+        ],
+        "handling_class": "courier",
+        "special_code": "EXP"
+      }
+    },
+    "priority_revenue_multipliers": {
+      "normal": 1.0,
+      "high": 1.18,
+      "urgent": 1.4
+    },
+    "special_handling_code_system": "Project-defined simplified handling categories; not a complete IATA operational special-handling code set",
+    "special_handling_code_definitions": {
+      "GEN": "General cargo with no additional modelled handling requirement",
+      "ELI": "Electronics handling category used by this project; real lithium-battery shipments require verification and more specific regulated coding",
+      "PER-COL": "Perishable cargo requiring cool or temperature-aware handling",
+      "PIL-COL": "Pharmaceutical cargo requiring cool or temperature-aware handling",
+      "FRG": "Fragile cargo requiring careful handling",
+      "DGR": "Dangerous-goods category; real operations require classification and commodity-specific regulated codes",
+      "EXP": "Express cargo requiring expedited handling"
+    },
+    "note": "Revenue, density, deadlines, availability probabilities and the LKR/USD conversion are transparent modelling assumptions, not observed Emirates or SriLankan Airlines transactions. Published SriLankan import terminal charges are used only as a proxy."
+  },
+  "validation": {
+    "rows": 100,
+    "missing_values": 0,
+    "duplicate_ids": 0,
+    "total_offered_weight_kg": 55006.5,
+    "total_offered_volume_m3": 271.56600000000003,
+    "total_offered_revenue_usd": 194729.37999999998,
+    "cargo_type_counts": {
+      "general": 35,
+      "electronics": 17,
+      "perishable": 13,
+      "pharmaceutical": 13,
+      "express": 11,
+      "fragile": 8,
+      "dangerous_goods": 3
+    },
+    "priority_counts": {
+      "high": 46,
+      "normal": 42,
+      "urgent": 12
+    }
+  }
+}

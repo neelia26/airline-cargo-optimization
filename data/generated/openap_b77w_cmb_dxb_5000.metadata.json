@@ -30,14 +30,18 @@
     "assumed_fuel_price_per_kg": 0.8
   },
   "validation": {
-    "rows": 100,
+    "rows": 5000,
     "columns": 15,
     "missing_values": 0,
     "duplicate_scenario_ids": 0,
     "openap_mtow_kg": 351500,
-    "maximum_generated_takeoff_mass_kg": 285987.67,
-    "minimum_generated_takeoff_mass_kg": 258088.425,
-    "minimum_fuel_consumption_kg": 40283.237,
-    "maximum_fuel_consumption_kg": 44236.476
+    "openap_mlw_kg": 251300,
+    "boeing_maximum_zero_fuel_mass_kg": 237682.0,
+    "maximum_generated_zero_fuel_mass_kg": 237669.948,
+    "minimum_generated_zero_fuel_mass_kg": 207501.399,
+    "maximum_generated_takeoff_mass_kg": 288936.996,
+    "minimum_generated_takeoff_mass_kg": 254539.355,
+    "minimum_fuel_consumption_kg": 39281.426,
+    "maximum_fuel_consumption_kg": 44693.734
   }
 }
