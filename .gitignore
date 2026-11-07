@@ -1,0 +1,15 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Private course materials should remain local.
+Lectures/
+CM4607- Assessment Briefs -2026-2027 (1).docx
+
+# Generated runtime artifacts.
+results/*
+!results/.gitkeep
+
