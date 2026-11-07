@@ -85,10 +85,13 @@ Detailed reasoning is recorded in `report/regression_model_selection.md`. Machin
 
 The public EUROCONTROL PRC 2025 operational dataset was audited for external validation. It contains 295 B777-300ER flights, but no CMB–DXB flight and no B777-300ER flight inside this model's 225.5–252.5 minute duration range. PRC also labels discontinuous fuel intervals, whereas this project predicts complete-flight fuel. Consequently, calculating a direct accuracy score would be invalid. The evidence and limitations are documented in `report/real_data_validation.md`.
 
+The take-off-mass relationship was also audited. Subtracting zero-fuel mass from take-off mass gives loaded fuel, which the generator defined as trip fuel plus 5% contingency and a 5,000 kg reserve. Reversing that formula reconstructs the target by design; it verifies internal consistency but also confirms that take-off mass would leak the target if used as an ML input.
+
 Reproduce the lightweight audit without retaining the downloaded source tables:
 
 ```bash
 .venv/bin/python src/model_validation/audit_prc_compatibility.py
+.venv/bin/python src/model_validation/audit_mass_target_relationship.py
 ```
 
 ## Project structure

@@ -31,3 +31,27 @@ The audit confirms that PRC is genuine operational evidence and that it contains
 For the coursework, the PRC audit remains valuable as critical evaluation. It demonstrates that the distinction between simulation accuracy and operational accuracy was investigated, identifies the exact data mismatch, and prevents the OpenAP test score from being misrepresented as real-world performance.
 
 The SVR can remain the model selected for the simulated environment. Its reported RMSE, MAE and R² must be described as OpenAP-simulation results. A future operational validation would require complete-flight B777-300ER fuel burn together with zero-fuel mass and weather/temperature information for a route sufficiently close to CMB–DXB.
+
+## Take-off mass consistency check
+
+The relationship suggested between take-off mass, zero-fuel mass and the target was also tested on all 5,000 OpenAP records:
+
+```text
+loaded fuel = take-off mass − zero-fuel mass
+```
+
+This produces the total fuel loaded before departure, not the fuel consumed during the modelled trip. The generator deliberately calculates it as:
+
+```text
+loaded fuel = trip fuel consumption × 1.05 + 5,000 kg reserve
+```
+
+Therefore, trip fuel can be reconstructed by reversing the generator formula:
+
+```text
+reconstructed trip fuel = (loaded fuel − 5,000) ÷ 1.05
+```
+
+Across all records, loaded fuel and the target had a correlation effectively equal to 1.0. Reversing the formula reproduced the target with a maximum absolute difference of only 0.0014 kg, caused by CSV rounding.
+
+This confirms that the mass columns are internally consistent. It does **not** constitute independent validation because take-off mass was created using the target itself. Supplying take-off mass to the regression model would reveal the answer indirectly and cause target leakage. Retaining zero-fuel mass as the ML input was therefore the correct decision.
