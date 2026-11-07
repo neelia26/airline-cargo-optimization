@@ -18,4 +18,6 @@ results/*
 !results/real_data_validation/**
 !results/deterministic_ga/
 !results/deterministic_ga/**
+!results/uncertainty_aware_ga/
+!results/uncertainty_aware_ga/**
 

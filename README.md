@@ -124,6 +124,20 @@ The selected manifest, convergence history and machine-readable summary are stor
 
 ![Deterministic GA workflow](report/figures/deterministic_ga_flowchart.png)
 
+## Uncertainty-aware GA optimisation
+
+Stage Two evaluates each planned manifest across 30 fixed cargo-availability scenarios. Its fitness combines 80% mean scenario profit with 20% mean profit from the worst 10% of scenarios. The resulting robust manifest is then compared with the deterministic manifest and baselines on 1,000 unseen common scenarios.
+
+The robust manifest selected 42 consignments. On unseen scenarios it achieved an average profit of $84,535.26 and a worst-10% mean of $76,110.69, improving on the deterministic manifest by $253.48 and $221.64 respectively while satisfying every planned constraint.
+
+Run Stage Two with:
+
+```bash
+.venv/bin/python src/genetic_algorithm/uncertainty_aware_ga.py
+```
+
+The robust manifest, convergence history, held-out comparison and JSON summary are stored in `results/uncertainty_aware_ga/`. The methodology and limitations are documented in `report/uncertainty_aware_ga_stage_two.md`.
+
 ## Project structure
 
 - `data/generated/` contains the final generated dataset.
