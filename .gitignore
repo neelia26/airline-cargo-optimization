@@ -12,4 +12,6 @@ CM4607- Assessment Briefs -2026-2027 (1).docx
 # Generated runtime artifacts.
 results/*
 !results/.gitkeep
+!results/model_selection/
+!results/model_selection/**
 

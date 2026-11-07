@@ -2,7 +2,7 @@
 
 Coursework project investigating machine-learning-supported cargo selection for a Boeing 777-300ER operating between Colombo and Dubai, with a genetic algorithm used to optimise the selected consignments.
 
-## Current data-collection stage
+## Data collection
 
 OpenAP is used to simulate fuel consumption for a Boeing 777-300ER (`B77W`) on the Colombo (`CMB`) to Dubai (`DXB`) route. Each row represents one flight scenario. The aircraft type, route and distance remain fixed, while mass and operating conditions vary through controlled stratified sampling.
 
@@ -58,6 +58,28 @@ Generate the 5,000-row dataset:
 ```
 
 The generator uses seed `4607` unless another seed is supplied. The metadata file records the assumptions and validation summary. The original 100-row pilot was removed after validation; its findings remain documented in `report/pilot_dataset_validation.md` and in Git history.
+
+## Regression model selection
+
+Five regression algorithms were compared using the same five inputs and fuel-consumption target. The data was split into an 85% development set and a 15% held-out test set. Model selection used the lowest mean RMSE from five-fold cross-validation on the development set; the test set was used only to confirm the selected model.
+
+| Rank | Model | CV RMSE (kg) | Test RMSE (kg) | Test MAE (kg) | Test R² |
+|---:|---|---:|---:|---:|---:|
+| 1 | Support Vector Regression | 29.47 | 27.62 | 21.88 | 0.99914 |
+| 2 | Polynomial Regression | 32.87 | 31.70 | 25.76 | 0.99887 |
+| 3 | Gradient Boosting Regression | 78.69 | 75.50 | 60.61 | 0.99359 |
+| 4 | Random Forest Regression | 115.97 | 106.48 | 82.85 | 0.98726 |
+| 5 | Multiple Linear Regression | 145.57 | 135.96 | 102.66 | 0.97922 |
+
+Support Vector Regression was selected because it produced the lowest cross-validated RMSE. Its test RMSE of 27.62 kg means that its predictions were typically about 27.62 kg away from the OpenAP fuel value. The saved pipeline includes feature scaling and uses `C=1000`, `epsilon=10` and `gamma=0.1`.
+
+Reproduce the comparison with:
+
+```bash
+.venv/bin/python src/machine_learning/select_regression_model.py
+```
+
+Detailed reasoning is recorded in `report/regression_model_selection.md`. Machine-readable metrics and the fitted pipeline are stored in `results/model_selection/`.
 
 ## Project structure
 

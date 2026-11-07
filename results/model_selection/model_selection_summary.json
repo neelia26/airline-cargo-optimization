@@ -1,0 +1,30 @@
+{
+  "selection_rule": "Lowest five-fold cross-validated RMSE on the 85% development set; the held-out test set is used only for final confirmation",
+  "random_seed": 4607,
+  "dataset_rows": 5000,
+  "development_rows": 4250,
+  "held_out_test_rows": 750,
+  "features": [
+    "zero_fuel_mass_kg",
+    "cruise_speed_kt",
+    "cruise_altitude_ft",
+    "temperature_deviation_k",
+    "flight_duration_min"
+  ],
+  "target": "fuel_consumption_kg",
+  "selected_model": "Support Vector Regression",
+  "selected_metrics": {
+    "rank": 1,
+    "model": "Support Vector Regression",
+    "cv_rmse_kg": 29.47170969330822,
+    "cv_mae_kg": 22.82656931619881,
+    "cv_r2": 0.9989554756685977,
+    "test_rmse_kg": 27.624827602647432,
+    "test_mae_kg": 21.8844160602744,
+    "test_r2": 0.9991423295123395,
+    "search_time_seconds": 11.48151379195042,
+    "test_prediction_time_ms": 88.20789610035717,
+    "prediction_time_ms_per_row": 0.11761052813380957,
+    "best_parameters": "{\"model__C\": 1000.0, \"model__epsilon\": 10.0, \"model__gamma\": 0.1}"
+  }
+}
