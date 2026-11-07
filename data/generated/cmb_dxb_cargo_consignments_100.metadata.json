@@ -139,6 +139,16 @@
       "high": 1.18,
       "urgent": 1.4
     },
+    "special_handling_code_system": "Project-defined simplified handling categories; not a complete IATA operational special-handling code set",
+    "special_handling_code_definitions": {
+      "GEN": "General cargo with no additional modelled handling requirement",
+      "ELI": "Electronics handling category used by this project; real lithium-battery shipments require verification and more specific regulated coding",
+      "PER-COL": "Perishable cargo requiring cool or temperature-aware handling",
+      "PIL-COL": "Pharmaceutical cargo requiring cool or temperature-aware handling",
+      "FRG": "Fragile cargo requiring careful handling",
+      "DGR": "Dangerous-goods category; real operations require classification and commodity-specific regulated codes",
+      "EXP": "Express cargo requiring expedited handling"
+    },
     "note": "Revenue, density, deadlines, availability probabilities and the LKR/USD conversion are transparent modelling assumptions, not observed Emirates or SriLankan Airlines transactions. Published SriLankan import terminal charges are used only as a proxy."
   },
   "validation": {

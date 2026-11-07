@@ -32,6 +32,22 @@ Published SriLankan Cargo import-terminal charges are used as a handling-cost pr
 | `deadline_hours` | Maximum delivery time associated with priority |
 | `availability_probability` | Scenario uncertainty that the booked consignment remains available |
 
+## Special-handling code dictionary
+
+The `special_handling_code` values are simplified categories used by this project. They make the GA constraints readable and are not presented as a complete operational IATA special-handling code system.
+
+| Code | Meaning in this dataset |
+|---|---|
+| `GEN` | General cargo with no additional modelled handling requirement |
+| `ELI` | Electronics handling category; real lithium-battery status must be verified separately |
+| `PER-COL` | Perishable cargo requiring cool or temperature-aware handling |
+| `PIL-COL` | Pharmaceutical cargo requiring cool or temperature-aware handling |
+| `FRG` | Fragile cargo requiring careful handling |
+| `DGR` | Dangerous-goods category; actual operations require commodity classification and specific regulated codes |
+| `EXP` | Express cargo requiring expedited handling |
+
+This simplification is sufficient for prototype constraints such as limiting dangerous goods or temperature-controlled consignments. It must not be interpreted as operational approval to load regulated cargo.
+
 ## Validation
 
 The generator rejects missing values, duplicate identifiers, non-positive physical or financial values, invalid probabilities, chargeable weight below actual weight and revenue that cannot cover handling cost. The metadata file records every range, probability, formula, source and assumption required to reproduce or challenge the dataset.

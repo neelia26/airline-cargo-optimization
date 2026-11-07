@@ -17,6 +17,22 @@ MODELLING_LKR_PER_USD = 320.0
 VOLUMETRIC_KG_PER_M3 = 1_000_000.0 / 6_000.0
 DOCUMENTATION_CHARGE_LKR = 2_000.0
 
+SPECIAL_HANDLING_CODES = {
+    "GEN": "General cargo with no additional modelled handling requirement",
+    "ELI": (
+        "Electronics handling category used by this project; real lithium-battery "
+        "shipments require verification and more specific regulated coding"
+    ),
+    "PER-COL": "Perishable cargo requiring cool or temperature-aware handling",
+    "PIL-COL": "Pharmaceutical cargo requiring cool or temperature-aware handling",
+    "FRG": "Fragile cargo requiring careful handling",
+    "DGR": (
+        "Dangerous-goods category; real operations require classification and "
+        "commodity-specific regulated codes"
+    ),
+    "EXP": "Express cargo requiring expedited handling",
+}
+
 CATEGORIES: dict[str, dict[str, object]] = {
     "general": {
         "probability": 0.30,
@@ -266,6 +282,11 @@ def main() -> None:
             "documentation_charge_lkr": DOCUMENTATION_CHARGE_LKR,
             "category_rules": CATEGORIES,
             "priority_revenue_multipliers": PRIORITY_MULTIPLIER,
+            "special_handling_code_system": (
+                "Project-defined simplified handling categories; not a complete "
+                "IATA operational special-handling code set"
+            ),
+            "special_handling_code_definitions": SPECIAL_HANDLING_CODES,
             "note": (
                 "Revenue, density, deadlines, availability probabilities and the "
                 "LKR/USD conversion are transparent modelling assumptions, not "

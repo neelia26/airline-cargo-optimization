@@ -98,6 +98,8 @@ Reproduce the lightweight audit without retaining the downloaded source tables:
 
 The genetic-algorithm input contains 100 reproducible synthetic consignments offered for the CMB–DXB flight. Weight, volume, chargeable weight, cargo category, priority, revenue, handling cost, deadline and availability probability are generated through documented rules. IATA's volumetric-weight convention and published SriLankan Cargo handling charges inform the calculations; route-specific financial and density values remain clearly labelled modelling assumptions.
 
+The consignment metadata and methodology report include a dictionary for `GEN`, `ELI`, `PER-COL`, `PIL-COL`, `FRG`, `DGR` and `EXP`. These are simplified project handling categories rather than a complete operational IATA code set.
+
 Generate the consignment table with:
 
 ```bash
