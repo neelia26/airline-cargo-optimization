@@ -20,4 +20,6 @@ results/*
 !results/deterministic_ga/**
 !results/uncertainty_aware_ga/
 !results/uncertainty_aware_ga/**
+!results/uncertainty_sensitivity/
+!results/uncertainty_sensitivity/**
 

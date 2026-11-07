@@ -140,6 +140,20 @@ The robust manifest, convergence history, held-out comparison and JSON summary a
 
 ![Uncertainty-aware GA workflow](report/figures/uncertainty_aware_ga_flowchart.png)
 
+## Uncertainty sensitivity analysis
+
+A single focused sensitivity experiment tests nominal independent availability, a 0.10 probability reduction, category-correlated operational disruption and stronger lower-tail weighting. The principal finding is that correlated category disruptions produce the meaningful benefit: compared with the deterministic manifest, the robust solution improved unseen average profit by $627.63 and worst-10% mean profit by $6,338.81 while reducing profit variability by $2,343.48.
+
+The moderate independent-disruption condition underperformed on unseen scenarios, highlighting possible overfitting to only 30 training scenarios. This result is retained as critical evaluation rather than omitted. Full assumptions, results and limitations are documented in `report/uncertainty_sensitivity_analysis.md`.
+
+Run the consolidated experiment with:
+
+```bash
+.venv/bin/python src/genetic_algorithm/uncertainty_sensitivity.py
+```
+
+Condition-specific manifests, convergence histories, comparison data and the JSON summary are stored in `results/uncertainty_sensitivity/`.
+
 ## Project structure
 
 - `data/generated/` contains the final generated dataset.
