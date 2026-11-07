@@ -19,6 +19,7 @@ CRUISE_DISTANCE_M = 2_754_000.0
 RESERVE_FUEL_KG = 5_000.0
 CONTINGENCY_FRACTION = 0.05
 ASSUMED_FUEL_PRICE_PER_KG = 0.80
+MAX_ZERO_FUEL_MASS_KG = 237_682.0
 
 
 def stratified_uniform(
@@ -213,8 +214,8 @@ def validate(frame: pd.DataFrame) -> dict[str, object]:
     aircraft = prop.aircraft(AIRCRAFT_TYPE)
     if frame["takeoff_mass_kg"].max() > aircraft["mtow"]:
         raise ValueError("A scenario exceeds the B77W maximum take-off mass")
-    if frame["zero_fuel_mass_kg"].max() > aircraft["mlw"]:
-        raise ValueError("A scenario has an implausible zero-fuel mass")
+    if frame["zero_fuel_mass_kg"].max() > MAX_ZERO_FUEL_MASS_KG:
+        raise ValueError("A scenario exceeds the B77W maximum zero-fuel mass")
     if (frame["fuel_consumption_kg"] <= 0).any():
         raise ValueError("A scenario has non-positive fuel consumption")
 
@@ -225,6 +226,7 @@ def validate(frame: pd.DataFrame) -> dict[str, object]:
         "duplicate_scenario_ids": int(frame["scenario_id"].duplicated().sum()),
         "openap_mtow_kg": aircraft["mtow"],
         "openap_mlw_kg": aircraft["mlw"],
+        "boeing_maximum_zero_fuel_mass_kg": MAX_ZERO_FUEL_MASS_KG,
         "maximum_generated_zero_fuel_mass_kg": float(
             frame["zero_fuel_mass_kg"].max()
         ),

@@ -19,7 +19,7 @@ The project contains a 100-row pilot and a 5,000-row final dataset of simulated 
 | Variable | Final minimum | Final maximum | Assessment |
 |---|---:|---:|---|
 | Cargo mass | 2,001.814 kg | 17,999.004 kg | Within the configured generation range |
-| Zero-fuel mass | 207,501.399 kg | 237,669.948 kg | Below OpenAP's maximum landing-mass reference |
+| Zero-fuel mass | 207,501.399 kg | 237,669.948 kg | Below Boeing's 237,682 kg maximum zero-fuel mass |
 | Take-off mass | 254,539.355 kg | 288,936.996 kg | Below the OpenAP MTOW of 351,500 kg |
 | Cruise speed | 458 kt | 500 kt | Plausible cruise-speed range |
 | Cruise altitude | 33,000 ft | 39,000 ft | Plausible cruise-altitude range |
@@ -45,6 +45,23 @@ An 85/15 train-test split with random state 4607 was used only to confirm that t
 |---|---:|---:|---:|
 | Linear regression | 0.979 | 102.7 kg | 136.0 kg |
 | Random forest | 0.987 | 84.8 kg | 108.9 kg |
+
+## Feature-combination feasibility audit
+
+All 5,000 combinations were checked using Boeing limits and OpenAP performance functions.
+
+| Check | Invalid rows |
+|---|---:|
+| Zero-fuel mass above 237,682 kg | 0 |
+| Take-off mass above 351,500 kg | 0 |
+| Estimated landing mass above 251,300 kg | 0 |
+| Cruise Mach above 0.89 | 0 |
+| Required level-flight drag above available OpenAP cruise thrust | 0 |
+| Non-positive fuel consumption | 0 |
+
+The calculated Mach numbers range from 0.779 to 0.875. The conservative drag-to-available-thrust ratio ranges from 0.768 to 0.972. The highest ratios occur in heavy, high-altitude scenarios, but remain below 1.0 even when take-off mass is used as a conservative cruise-mass approximation. Actual aircraft mass would be lower after climb fuel is consumed.
+
+Average route speed, calculated from distance and simulated duration, ranges from approximately 786 to 880 km/h. This is below cruise speed because the duration also includes climb and descent.
 
 ## Conclusion
 

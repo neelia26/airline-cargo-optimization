@@ -36,6 +36,7 @@
     "duplicate_scenario_ids": 0,
     "openap_mtow_kg": 351500,
     "openap_mlw_kg": 251300,
+    "boeing_maximum_zero_fuel_mass_kg": 237682.0,
     "maximum_generated_zero_fuel_mass_kg": 235413.24,
     "minimum_generated_zero_fuel_mass_kg": 209531.686,
     "maximum_generated_takeoff_mass_kg": 285987.67,

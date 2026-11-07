@@ -18,6 +18,8 @@ The prediction target is `fuel_consumption_kg`.
 
 Zero-fuel mass is used instead of take-off mass because it is known before fuel is predicted. Take-off mass is retained only as a supporting calculated field.
 
+Generated records are checked against the Boeing 777-300ER maximum zero-fuel mass of 237,682 kg and the OpenAP take-off and landing limits.
+
 ## Dataset schema
 
 | Column | Role | Description |
