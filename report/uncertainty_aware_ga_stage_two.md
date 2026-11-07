@@ -4,6 +4,8 @@
 
 Stage Two extends the verified deterministic GA by recognising that a booked consignment may become unavailable before loading. Each consignment's generated `availability_probability` is used to simulate future manifests. The aircraft limits and fixed flight scenario remain identical to Stage One, allowing the two selected plans to be compared fairly.
 
+![Uncertainty-aware GA workflow](figures/uncertainty_aware_ga_flowchart.png)
+
 ## Scenario-based fitness
 
 Thirty common availability scenarios are generated once with seed `4610` and reused for every chromosome. For each scenario, every selected consignment is independently marked available or unavailable using its probability. Revenue, handling cost, loaded weight and SVR-predicted additional fuel are recalculated from the cargo that is actually available.

@@ -138,6 +138,8 @@ Run Stage Two with:
 
 The robust manifest, convergence history, held-out comparison and JSON summary are stored in `results/uncertainty_aware_ga/`. The methodology and limitations are documented in `report/uncertainty_aware_ga_stage_two.md`.
 
+![Uncertainty-aware GA workflow](report/figures/uncertainty_aware_ga_flowchart.png)
+
 ## Project structure
 
 - `data/generated/` contains the final generated dataset.
