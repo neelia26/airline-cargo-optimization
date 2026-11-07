@@ -49,12 +49,6 @@ python3.12 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 ```
 
-Generate the 100-row pilot:
-
-```bash
-.venv/bin/python src/data_generation/generate_openap_pilot.py
-```
-
 Generate the 5,000-row dataset:
 
 ```bash
@@ -63,11 +57,10 @@ Generate the 5,000-row dataset:
   --output data/generated/openap_b77w_cmb_dxb_5000.csv
 ```
 
-Both datasets use seed `4607` unless another seed is supplied. Metadata files record the assumptions and validation summary.
+The generator uses seed `4607` unless another seed is supplied. The metadata file records the assumptions and validation summary. The original 100-row pilot was removed after validation; its findings remain documented in `report/pilot_dataset_validation.md` and in Git history.
 
 ## Project structure
 
-- `data/pilot/` contains the validated pilot dataset.
 - `data/generated/` contains the final generated dataset.
 - `src/data_generation/` contains OpenAP data-generation code.
 - `src/machine_learning/` contains fuel-consumption modelling code.
