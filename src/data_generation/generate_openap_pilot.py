@@ -170,7 +170,7 @@ def generate_pilot(rows: int, seed: int) -> pd.DataFrame:
                 "destination": DESTINATION,
                 "distance_km": ROUTE_DISTANCE_KM,
                 "cargo_mass_kg": float(cargo_mass[index]),
-                "base_aircraft_mass_kg": float(base_mass[index]),
+                "zero_fuel_mass_kg": float(base_mass[index] + cargo_mass[index]),
                 **simulation,
                 "fuel_price_per_kg": ASSUMED_FUEL_PRICE_PER_KG,
                 "estimated_fuel_cost": fuel_cost,
@@ -193,7 +193,7 @@ def validate(frame: pd.DataFrame) -> dict[str, object]:
         "destination",
         "distance_km",
         "cargo_mass_kg",
-        "base_aircraft_mass_kg",
+        "zero_fuel_mass_kg",
         "takeoff_mass_kg",
         "cruise_speed_kt",
         "cruise_altitude_ft",
@@ -213,6 +213,8 @@ def validate(frame: pd.DataFrame) -> dict[str, object]:
     aircraft = prop.aircraft(AIRCRAFT_TYPE)
     if frame["takeoff_mass_kg"].max() > aircraft["mtow"]:
         raise ValueError("A scenario exceeds the B77W maximum take-off mass")
+    if frame["zero_fuel_mass_kg"].max() > aircraft["mlw"]:
+        raise ValueError("A scenario has an implausible zero-fuel mass")
     if (frame["fuel_consumption_kg"] <= 0).any():
         raise ValueError("A scenario has non-positive fuel consumption")
 
@@ -222,6 +224,13 @@ def validate(frame: pd.DataFrame) -> dict[str, object]:
         "missing_values": int(frame.isna().sum().sum()),
         "duplicate_scenario_ids": int(frame["scenario_id"].duplicated().sum()),
         "openap_mtow_kg": aircraft["mtow"],
+        "openap_mlw_kg": aircraft["mlw"],
+        "maximum_generated_zero_fuel_mass_kg": float(
+            frame["zero_fuel_mass_kg"].max()
+        ),
+        "minimum_generated_zero_fuel_mass_kg": float(
+            frame["zero_fuel_mass_kg"].min()
+        ),
         "maximum_generated_takeoff_mass_kg": float(frame["takeoff_mass_kg"].max()),
         "minimum_generated_takeoff_mass_kg": float(frame["takeoff_mass_kg"].min()),
         "minimum_fuel_consumption_kg": float(frame["fuel_consumption_kg"].min()),
