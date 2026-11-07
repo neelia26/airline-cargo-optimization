@@ -108,6 +108,22 @@ Generate the consignment table with:
 
 The resulting CSV and metadata are stored in `data/generated/`. The complete methodology is documented in `report/cargo_consignment_generation.md`.
 
+## Deterministic GA optimisation
+
+Stage One uses a 100-gene binary chromosome to select cargo under payload, volume, maximum zero-fuel-mass and handling-budget constraints. Each repaired chromosome is passed to the saved SVR in a batch to estimate additional fuel relative to a no-selected-cargo baseline. Fitness is cargo revenue minus handling cost and additional fuel cost.
+
+The reproducible seed-`4607` run selected 42 consignments and achieved a fitness of $90,762.62 while satisfying every implemented constraint. This exceeded the greedy baseline by $3,216.70 and the best of 10,000 repaired random selections by $12,642.83.
+
+Run Stage One with:
+
+```bash
+.venv/bin/python src/genetic_algorithm/deterministic_ga.py
+```
+
+The selected manifest, convergence history and machine-readable summary are stored in `results/deterministic_ga/`. Full methodology and limitations are recorded in `report/deterministic_ga_stage_one.md`.
+
+![Deterministic GA workflow](report/figures/deterministic_ga_flowchart.png)
+
 ## Project structure
 
 - `data/generated/` contains the final generated dataset.

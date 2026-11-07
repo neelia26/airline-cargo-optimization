@@ -1,0 +1,48 @@
+{
+  "stage": "deterministic GA optimisation",
+  "scenario": {
+    "base_zero_fuel_mass_kg": 210000.0,
+    "available_cargo_payload_kg": 18000.0,
+    "available_cargo_volume_m3": 100.0,
+    "handling_budget_usd": 2500.0,
+    "maximum_zero_fuel_mass_kg": 237682.0,
+    "cruise_speed_kt": 477.0,
+    "cruise_altitude_ft": 36000.0,
+    "temperature_deviation_k": 2.0,
+    "flight_duration_min": 239.5,
+    "fuel_price_usd_per_kg": 0.8
+  },
+  "ga_settings": {
+    "population_size": 150,
+    "generations": 250,
+    "crossover_probability": 0.9,
+    "mutation_probability_per_gene": 0.01,
+    "tournament_size": 3,
+    "elite_count": 4,
+    "random_seed": 4607,
+    "random_baseline_samples": 10000
+  },
+  "baseline_fuel_without_selected_cargo_kg": 40826.568346519525,
+  "result": {
+    "weight_kg": 15044.4,
+    "volume_m3": 97.212,
+    "revenue_usd": 94511.14000000001,
+    "handling_cost_usd": 2493.9700000000003,
+    "predicted_fuel_kg": 42394.751621133706,
+    "additional_fuel_kg": 1568.1832746141808,
+    "additional_fuel_cost_usd": 1254.5466196913449,
+    "fitness_usd": 90762.62338030867,
+    "selected_consignments": 42,
+    "resulting_zero_fuel_mass_kg": 225044.4,
+    "payload_utilisation_percent": 83.58,
+    "volume_utilisation_percent": 97.212,
+    "handling_budget_utilisation_percent": 99.75880000000001,
+    "constraints_satisfied": true,
+    "greedy_baseline_fitness_usd": 87545.91845183235,
+    "random_baseline_fitness_usd": 78119.78962058818,
+    "ga_improvement_over_greedy_usd": 3216.7049284763198,
+    "ga_improvement_over_random_usd": 12642.83375972048,
+    "greedy_selected_consignments": 44,
+    "random_selected_consignments": 33
+  }
+}
