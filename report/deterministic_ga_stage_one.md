@@ -4,6 +4,8 @@
 
 The deterministic GA selects a profitable, feasible subset of the 100 CMB–DXB cargo consignments. All consignment values are treated as fixed in Stage One. Availability uncertainty is deliberately reserved for Stage Two so that the chromosome, constraints, SVR connection and fitness calculation can first be verified in a stable environment.
 
+![Deterministic GA workflow](figures/deterministic_ga_flowchart.png)
+
 ## Fixed flight scenario
 
 | Parameter | Stage-one value |

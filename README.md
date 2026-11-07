@@ -122,6 +122,8 @@ Run Stage One with:
 
 The selected manifest, convergence history and machine-readable summary are stored in `results/deterministic_ga/`. Full methodology and limitations are recorded in `report/deterministic_ga_stage_one.md`.
 
+![Deterministic GA workflow](report/figures/deterministic_ga_flowchart.png)
+
 ## Project structure
 
 - `data/generated/` contains the final generated dataset.
